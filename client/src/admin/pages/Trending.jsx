@@ -29,7 +29,6 @@ const Trending = () => {
     fetchTrendingPosts();
     fetchAllPosts();
 
-    // Set loading to false once data is fetched
     setIsLoading(false);
   }, []);
 
@@ -38,10 +37,10 @@ const Trending = () => {
 
     try {
       await axios.post('/api/trending', { pid: selectedPostId });
-      setSelectedPostId(''); // Reset the selected post
-      // Refresh the trending posts by re-fetching
+      setSelectedPostId(''); 
+
       const response = await axios.get('/api/trending');
-      setTrendingPosts(response.data); // Update the state with new trending posts
+      setTrendingPosts(response.data); 
     } catch (error) {
       console.error('Error adding trending post:', error);
     }

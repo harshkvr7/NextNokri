@@ -39,9 +39,7 @@ const Home = () => {
   return (
     <div className="flex justify-center items-start py-6 px-4 w-3/4 gap-9">
       <div className="flex flex-row space-x-8">
-        {/* Main Section */}
         <div className="w-2/3 space-y-8">
-          {/* Central Jobs Section */}
           <div className="bg-white border border-gray-300 p-6 rounded-lg shadow-md">
             <h2 className="text-2xl font-bold mb-4 text-gray-800">Central Jobs</h2>
             <ul className="space-y-3">
@@ -65,7 +63,6 @@ const Home = () => {
             </ul>
           </div>
 
-          {/* Exam Section */}
           <div className="bg-white border border-gray-300 p-6 rounded-lg shadow-md">
             <h2 className="text-2xl font-bold mb-4 text-gray-800">Exams</h2>
             <ul className="space-y-3">
@@ -90,7 +87,6 @@ const Home = () => {
           </div>
         </div>
 
-        {/* Trending Section */}
         <div className="w-1/3 bg-gray-100 border border-gray-300 p-6 rounded-lg shadow-md">
           <h2 className="text-xl font-bold mb-4 text-gray-800">Trending</h2>
           <ul className="space-y-3">

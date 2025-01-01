@@ -1,6 +1,9 @@
-import bcrypt from 'bcryptjs';
+import bcrypt from "bcryptjs";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 export const adminCredentials = {
-  username: 'admin',
-  password: bcrypt.hashSync('adminpassword', 10), 
+  username: process.env.ADMIN_USERNAME,
+  password: bcrypt.hashSync(process.env.ADMIN_PASSWORD, 10),
 };

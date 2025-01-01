@@ -21,7 +21,6 @@ const Navbar = () => {
 
   return (
     <div className="w-3/4">
-      {/* Navbar Section */}
       <div className="flex px-16 flex-row justify-between border-b pb-2 gap-9 pt-1 items-center border-b-slate-300">
         <div className="flex flex-row gap-10 items-center">
           <Link to="/" className="text-3xl font-semibold mr-10">
@@ -45,7 +44,6 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* Headlines Section */}
       <div className="flex w-full justify-center gap-10 border-b-slate-700 border-b py-2">
         {headlines.length > 0 ? (
           headlines.map((headline) => (

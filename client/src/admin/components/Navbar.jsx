@@ -34,7 +34,6 @@ const Navbar = () => {
         </div>
 
         <div className="flex items-center gap-6">
-          {/* Add New Post Button */}
           <Link 
             to="/admin/post" 
             className='flex items-center'
@@ -43,7 +42,6 @@ const Navbar = () => {
             >Add New Post</span>
           </Link>
 
-          {/* Logout Button */}
           <button
             onClick={handleLogout}
             className="text-sm font-semibold text-red-600 hover:text-white py-2 px-4 rounded-md border border-red-600 hover:bg-red-500 transition-all duration-200"

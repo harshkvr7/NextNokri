@@ -7,7 +7,6 @@ const Headlines = () => {
   const [newHeadline, setNewHeadline] = useState('');
   const [selectedPostId, setSelectedPostId] = useState('');
 
-  // Fetch posts from the backend
   useEffect(() => {
     const fetchPosts = async () => {
       try {
@@ -21,7 +20,6 @@ const Headlines = () => {
     fetchPosts();
   }, []);
 
-  // Fetch headlines from the backend
   useEffect(() => {
     const fetchHeadlines = async () => {
       try {
@@ -35,7 +33,6 @@ const Headlines = () => {
     fetchHeadlines();
   }, []);
 
-  // Add a new headline
   const addHeadline = async () => {
     if (!newHeadline || !selectedPostId) return;
 
@@ -53,7 +50,6 @@ const Headlines = () => {
     }
   };
 
-  // Delete a headline
   const deleteHeadline = async (headlineId) => {
     try {
       await axios.delete(`/api/headlines/${headlineId}`);
