@@ -1,0 +1,19 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.bordered-table {
+    @apply min-w-full border-collapse border border-gray-300;
+  }
+  
+  .bordered-table th, .bordered-table td {
+    @apply px-4 py-2 border border-gray-300;
+  }
+  
+  .bordered-table th {
+    @apply bg-gray-100 text-left;
+  }
+  
+  .bordered-table td {
+    @apply text-left;
+  }
