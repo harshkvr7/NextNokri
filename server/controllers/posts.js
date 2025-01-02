@@ -1,12 +1,12 @@
 import { db } from "../db.js";
 
 export const addPost = async (req, res) => {
-    const { title, type, region, content, status } = req.body;
+    const { title, type, region, content, status, last_date } = req.body;
 
     try {
         const postResult = await db.query(
-            "INSERT INTO posts(title, ptype, region, status, updated) VALUES ($1, $2, $3, $4, CURRENT_TIMESTAMP) RETURNING id",
-            [title, type, region, status]
+            "INSERT INTO posts(title, ptype, region, status, updated, last_date) VALUES ($1, $2, $3, $4, CURRENT_TIMESTAMP, $5) RETURNING id",
+            [title, type, region, status, last_date]
         );
 
         const postId = postResult.rows[0].id;
@@ -27,7 +27,7 @@ export const getPosts = async (req, res) => {
     try {
         const { region, type } = req.query;
 
-        let query = "SELECT id, title, status, updated FROM posts";
+        let query = "SELECT id, title, status, updated, last_date FROM posts";
         let queryParams = [];
         let conditions = [];
 
@@ -77,12 +77,12 @@ export const deletePost = async (req, res) => {
 
 export const updatePost = async (req, res) => {
     const { postid } = req.params;
-    const { title, type, region, content, status } = req.body;
+    const { title, type, region, content, status, last_date } = req.body;
 
     try {
         const postResult = await db.query(
-            "UPDATE posts SET title = $1, ptype = $2, region = $3, status = $4, updated = CURRENT_TIMESTAMP WHERE id = $5 RETURNING id",
-            [title, type, region, status, postid]
+            "UPDATE posts SET title = $1, ptype = $2, region = $3, status = $4, updated = CURRENT_TIMESTAMP, last_date = $5 WHERE id = $6 RETURNING id",
+            [title, type, region, status, last_date, postid]
         );
 
         if (postResult.rowCount === 0) {
@@ -110,7 +110,7 @@ export const getPost = async (req, res) => {
 
     try {
         const postResult = await db.query(
-            "SELECT id, title, ptype, region, status, updated FROM posts WHERE id = $1",
+            "SELECT id, title, ptype, region, status, updated, last_date FROM posts WHERE id = $1",
             [postid]
         );
 
@@ -138,6 +138,7 @@ export const getPost = async (req, res) => {
             region: post.region,
             status: post.status,
             updated: post.updated,
+            last_date: post.last_date,
             content: content,
         });
     } catch (error) {
@@ -145,5 +146,3 @@ export const getPost = async (req, res) => {
         return res.status(500).json({ message: "Error getting post" });
     }
 };
-
-

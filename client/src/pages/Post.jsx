@@ -42,6 +42,7 @@ const Post = () => {
         
         <div className="text-center text-gray-600 mb-4">
           <p><strong>Updated:</strong> {new Date(post.updated).toLocaleString()}</p>
+          <p><strong>Last Date:</strong> {post.last_date ? new Date(post.last_date).toLocaleString() : "N/A"}</p>
           {post.region}
         </div>
 

@@ -55,6 +55,11 @@ const Home = () => {
                     <p className="text-gray-500 text-sm">
                       Updated: {new Date(post.updated).toLocaleString()}
                     </p>
+                    {post.last_date && (
+                      <p className="text-red-600 text-sm">
+                        Last Date: {new Date(post.last_date).toLocaleDateString()}
+                      </p>
+                    )}
                   </li>
                 ))
               ) : (
@@ -78,6 +83,11 @@ const Home = () => {
                     <p className="text-gray-500 text-sm">
                       Updated: {new Date(post.updated).toLocaleString()}
                     </p>
+                    {post.last_date && (
+                      <p className="text-red-600 text-sm">
+                        Last Date: {new Date(post.last_date).toLocaleDateString()}
+                      </p>
+                    )}
                   </li>
                 ))
               ) : (
@@ -102,6 +112,11 @@ const Home = () => {
                   <p className="text-gray-500 text-sm">
                     Updated: {new Date(post.updated).toLocaleString()}
                   </p>
+                  {post.last_date && (
+                    <p className="text-red-600 text-sm">
+                      Last Date: {new Date(post.last_date).toLocaleDateString()}
+                    </p>
+                  )}
                 </li>
               ))
             ) : (

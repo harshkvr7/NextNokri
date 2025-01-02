@@ -9,6 +9,7 @@ const PostEditor = () => {
   const [region, setRegion] = useState("");
   const [status, setStatus] = useState("");
   const [content, setContent] = useState('');
+  const [lastDate, setLastDate] = useState(''); // State for last_date
   const [isLoading, setIsLoading] = useState(true);
 
   const navigate = useNavigate();
@@ -25,9 +26,7 @@ const PostEditor = () => {
           setRegion(post.region);
           setStatus(post.status);
           setContent(post.content);
-          console.log(post.content);
-          console.log(title);
-          
+          setLastDate(post.last_date || ''); // Set last_date if available
         } catch (error) {
           console.error("Error fetching post details:", error);
         } finally {
@@ -41,18 +40,21 @@ const PostEditor = () => {
   }, [id]);
 
   const handleSavePost = () => {
+    const formattedLastDate = lastDate ? new Date(lastDate).toISOString() : null;
+  
     const postData = {
       title,
       type: ptype,
       region,
       status,
-      content
+      content,
+      last_date: formattedLastDate,
     };
-
+  
     const request = id
       ? axios.put(`/api/posts/${id}`, postData)
       : axios.post("/api/posts", postData);
-
+  
     request
       .then((response) => {
         console.log("Post saved successfully:", response.data);
@@ -66,7 +68,7 @@ const PostEditor = () => {
   if (isLoading) return <div>Loading...</div>;
 
   return (
-    <div className="flex flex-col w-3/4 bg-white  -pt-6 space-y-6 mx-auto mt-3">
+    <div className="flex flex-col w-3/4 bg-white -pt-6 space-y-6 mx-auto mt-3">
       <h2 className="text-2xl font-semibold text-center text-gray-800">{id ? "Edit Post" : "Create New Post"}</h2>
 
       <div className="flex flex-col gap-4">
@@ -97,6 +99,13 @@ const PostEditor = () => {
           onChange={e => setStatus(e.target.value)}
           value={status}
           placeholder="Status"
+        />
+        <input
+          className="p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 outline-none"
+          type="datetime-local" // Input for date and time
+          onChange={e => setLastDate(e.target.value)}
+          value={lastDate}
+          placeholder="Last Date"
         />
       </div>
 
