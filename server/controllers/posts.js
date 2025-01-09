@@ -28,15 +28,15 @@ export const getPosts = async (req, res) => {
         const { region, type } = req.query;
 
         let query = "SELECT id, title, status, updated, last_date FROM posts";
-        let queryParams = [];
-        let conditions = [];
+        const queryParams = [];
+        const conditions = [];
 
         if (region) {
-            conditions.push("region = $1");
+            conditions.push(`region = $${queryParams.length + 1}`);
             queryParams.push(region);
         }
         if (type) {
-            conditions.push("ptype = $2");
+            conditions.push(`ptype = $${queryParams.length + 1}`);
             queryParams.push(type);
         }
 
@@ -48,10 +48,10 @@ export const getPosts = async (req, res) => {
 
         const result = await db.query(query, queryParams);
 
-        return res.json(result.rows);
+        return res.status(200).json(result.rows);
     } catch (error) {
-        console.error("Error getting posts:", error);
-        return res.status(500).json({ message: "Error getting posts" });
+        console.error("Error getting posts:", error.message);
+        return res.status(500).json({ message: "An error occurred while fetching posts" });
     }
 };
 
