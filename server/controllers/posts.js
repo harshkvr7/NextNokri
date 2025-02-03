@@ -4,7 +4,6 @@ export const addPost = async (req, res) => {
     const { title, type, region, content, status, last_date, tags } = req.body;
 
     try {
-        // Insert the post
         const postResult = await db.query(
             "INSERT INTO posts(title, ptype, region, status, updated, last_date) VALUES ($1, $2, $3, $4, CURRENT_TIMESTAMP, $5) RETURNING id",
             [title, type, region, status, last_date]
@@ -12,15 +11,12 @@ export const addPost = async (req, res) => {
 
         const postId = postResult.rows[0].id;
 
-        // Insert the content
         await db.query(
             "INSERT INTO content(pid, text_content) VALUES ($1, $2)",
             [postId, content]
         );
 
-        // Insert tags and create relationships
         if (tags && tags.length > 0) {
-            // Insert tags if they don't exist already
             for (let tag of tags) {
                 const tagResult = await db.query(
                     "INSERT INTO tags(name) VALUES ($1) ON CONFLICT (name) DO NOTHING RETURNING id",
@@ -29,7 +25,6 @@ export const addPost = async (req, res) => {
 
                 const tagId = tagResult.rows[0]?.id;
 
-                // Link the tag to the post
                 if (tagId) {
                     await db.query(
                         "INSERT INTO post_tags(post_id, tag_id) VALUES ($1, $2)",
@@ -56,25 +51,21 @@ export const getPosts = async (req, res) => {
 
         const conditions = [];
 
-        // Filtering by region
         if (region) {
             conditions.push(`region = $${queryParams.length + 1}`);
             queryParams.push(region);
         }
 
-        // Filtering by type
         if (type) {
             conditions.push(`ptype = $${queryParams.length + 1}`);
             queryParams.push(type);
         }
 
-        // Filtering by status
         if (status) {
             conditions.push(`status = $${queryParams.length + 1}`);
             queryParams.push(status);
         }
 
-        // Filtering by tags
         if (tags) {
             const tagConditions = tags.split(',').map((tag, index) => {
                 queryParams.push(tag);
@@ -83,18 +74,15 @@ export const getPosts = async (req, res) => {
             conditions.push(`EXISTS (SELECT 1 FROM post_tags pt JOIN tags ON pt.tag_id = tags.id WHERE pt.post_id = posts.id AND (${tagConditions.join(' OR ')}))`);
         }
 
-        // Apply conditions if any
         if (conditions.length > 0) {
             query += " WHERE " + conditions.join(" AND ");
         }
 
-        // Order the posts by updated date
         query += " ORDER BY updated DESC";
 
-        // Apply LIMIT if it's provided in the query params
         if (limit) {
             query += ` LIMIT $${queryParams.length + 1}`;
-            queryParams.push(parseInt(limit, 10)); // Make sure the limit is an integer
+            queryParams.push(parseInt(limit, 10));
         }
 
         const result = await db.query(query, queryParams);

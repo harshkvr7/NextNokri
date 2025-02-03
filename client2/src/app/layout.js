@@ -1,6 +1,6 @@
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
-import Sidebar from "./components/Sidebar"; // Assuming you created the Sidebar component
+import Sidebar from "./components/Sidebar"; 
 import "./globals.css";
 
 const Layout = ({ children }) => {

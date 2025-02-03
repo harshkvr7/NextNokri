@@ -5,7 +5,7 @@ const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000";
 async function getPost(id) {
   try {
     const res = await fetch(`${API_BASE_URL}/api/posts/${id}`, {
-      next: { revalidate: 60 }, // Revalidate every 60 seconds
+      next: { revalidate: 60 }, 
     });
 
     if (!res.ok) {
@@ -19,7 +19,7 @@ async function getPost(id) {
 }
 
 export default async function PostPage({ params }) {
-  const { id } = await params; // Await the params object
+  const { id } = await params; 
   const post = await getPost(id);
 
   if (!post) {

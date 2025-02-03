@@ -62,7 +62,6 @@ const Trending = () => {
       <div className="flex flex-col gap-6">
         <h2 className="text-3xl font-semibold text-gray-800">Manage Trending Posts</h2>
 
-        {/* Add New Trending Post */}
         <div className="flex gap-6 bg-white p-6 rounded-lg shadow-sm border border-gray-300">
           <select
             value={selectedPostId}
@@ -85,7 +84,6 @@ const Trending = () => {
           </button>
         </div>
 
-        {/* List of Trending Posts */}
         <div className="mt-6">
           <h3 className="text-xl font-medium text-gray-800">Current Trending Posts</h3>
           <ul className="list-none mt-4 space-y-4">

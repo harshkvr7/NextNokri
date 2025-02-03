@@ -1,12 +1,12 @@
 import Link from "next/link";
 
 async function fetchData() {
-  const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000"; // Fallback for local dev
+  const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000"; 
 
   try {
     const [centralJobsRes, examPostsRes, trendingPostsRes] = await Promise.all([
-      fetch(`${API_BASE_URL}/api/posts/?region=central&limit=10`, { next: { revalidate: 60 } }), // Limit to 10 central jobs
-      fetch(`${API_BASE_URL}/api/posts/?type=exam&limit=10`, { next: { revalidate: 60 } }),    // Limit to 10 exam posts
+      fetch(`${API_BASE_URL}/api/posts/?region=central&limit=10`, { next: { revalidate: 60 } }), 
+      fetch(`${API_BASE_URL}/api/posts/?type=exam&limit=10`, { next: { revalidate: 60 } }),    
     ]);
 
     if (!centralJobsRes.ok || !examPostsRes.ok) {

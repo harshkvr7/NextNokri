@@ -7,7 +7,6 @@ import Login from './pages/Login';
 import PrivateRoute from './components/PrivateRoute';
 import Post from './pages/Post';
 
-// Lazy load admin components for better performance
 const AdNavbar = lazy(() => import('./admin/components/Navbar'));
 const Headlines = lazy(() => import('./admin/pages/Headlines'));
 const AdPost = lazy(() => import('./admin/pages/Post'));
@@ -15,7 +14,6 @@ const AdPosts = lazy(() => import('./admin/pages/Posts'));
 const PostEditor = lazy(() => import('./admin/pages/Post'));
 const Trending = lazy(() => import('./admin/pages/Trending'));
 
-// Define the routes
 const router = createBrowserRouter([
   {
     path: "/",

@@ -1,6 +1,5 @@
 import Link from "next/link";
 
-// Fetch jobs based on region, type, and status
 async function fetchJobs(region, type, status) {
   const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000";
   
@@ -11,7 +10,7 @@ async function fetchJobs(region, type, status) {
 
   try {
     const res = await fetch(`${API_BASE_URL}/api/posts?${queryParams.toString()}`, {
-      next: { revalidate: 60 }, // Revalidate the data every 60 seconds
+      next: { revalidate: 60 },
     });
     if (!res.ok) {
       throw new Error("Failed to fetch jobs");

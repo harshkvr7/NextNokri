@@ -1,6 +1,5 @@
 import Link from "next/link";
 
-// Fetch data at build time and revalidate every 60 seconds
 async function fetchTrendingPosts() {
   const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000";
 

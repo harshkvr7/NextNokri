@@ -1,6 +1,5 @@
 import Link from "next/link";
 
-// Fetch exams based on type (upcoming or all exams)
 async function fetchExams(status, region) {
     const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000";
     

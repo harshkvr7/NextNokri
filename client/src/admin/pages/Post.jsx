@@ -10,7 +10,7 @@ const PostEditor = () => {
   const [status, setStatus] = useState("");
   const [content, setContent] = useState('');
   const [lastDate, setLastDate] = useState('');
-  const [tags, setTags] = useState(''); // State for tags
+  const [tags, setTags] = useState(''); 
   const [isLoading, setIsLoading] = useState(true);
 
   const navigate = useNavigate();
@@ -28,7 +28,7 @@ const PostEditor = () => {
           setStatus(post.status);
           setContent(post.content);
           setLastDate(post.last_date || '');
-          setTags(post.tags.join(',')); // Set tags if available (assuming tags are an array)
+          setTags(post.tags.join(',')); 
         } catch (error) {
           console.error("Error fetching post details:", error);
         } finally {
@@ -43,7 +43,7 @@ const PostEditor = () => {
 
   const handleSavePost = () => {
     const formattedLastDate = lastDate ? new Date(lastDate).toISOString() : null;
-    const tagsArray = tags.split(',').map(tag => tag.trim()); // Split and trim tags
+    const tagsArray = tags.split(',').map(tag => tag.trim()); 
 
     const postData = {
       title,
@@ -52,7 +52,7 @@ const PostEditor = () => {
       status,
       content,
       last_date: formattedLastDate,
-      tags: tagsArray, // Include tags in the post data
+      tags: tagsArray, 
     };
 
     const request = id
@@ -111,7 +111,6 @@ const PostEditor = () => {
           value={lastDate}
           placeholder="Last Date"
         />
-        {/* Input for tags */}
         <input
           className="p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 outline-none"
           type="text"

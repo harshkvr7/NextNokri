@@ -1,7 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
 
-// Fetch data at build time and revalidate every 60 seconds
 async function fetchHeadlines() {
   const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000";
 
@@ -35,7 +34,6 @@ export default async function Navbar() {
             NextNokri
           </Link>
 
-          {/* Jobs Dropdown */}
           <div className="relative group">
             <Link
               href="/jobs"
@@ -45,11 +43,9 @@ export default async function Navbar() {
             </Link>
             <div className="absolute hidden group-hover:block left-0 w-56 bg-white border border-gray-300 shadow-lg rounded-md p-2 z-50">
               <div className="border-b pb-2 mb-2">
-                {/* Link for Central */}
                 <Link href="/jobs?region=central&type=job" className="block px-4 py-2 hover:bg-gray-200">
                   Central 
                 </Link>
-                {/* Link for Upcoming */}
                 <Link
                   href="/jobs?type=job&status=upcoming"
                   className="block px-4 py-2 hover:bg-gray-200"
@@ -64,7 +60,6 @@ export default async function Navbar() {
                 </Link>
               </div>
               <div>
-                {/* Links for States */}
                 {states.map((state) => (
                   <Link
                     key={state}
@@ -78,7 +73,6 @@ export default async function Navbar() {
             </div>
           </div>
 
-          {/* Exams Dropdown */}
           <div className="relative group">
             <Link
               href="/exams"
@@ -102,7 +96,6 @@ export default async function Navbar() {
                 </Link>
               </div>
               <div>
-                {/* Link for Other Exams */}
                 
                 {states.map((state) => (
                   <Link
@@ -118,7 +111,6 @@ export default async function Navbar() {
           </div>
         </div>
 
-        {/* Search Bar */}
         <div className="flex items-center gap-2 border border-slate-300 p-1 rounded-md">
           <Image src="/search.png" width={20} height={20} alt="search-icon" />
           <form method="GET" action="/search" className="flex w-full">

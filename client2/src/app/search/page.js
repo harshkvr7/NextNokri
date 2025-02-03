@@ -1,23 +1,23 @@
-"use client"
+"use client"; 
 
-import Link from "next/link";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
+import Link from "next/link";
 
-export default function SearchPage() {
-  const searchParams = useSearchParams(); // Get search parameters
-  const tag = searchParams.get("tag"); // Get 'tag' from the query parameters
+function Search() {
+  const searchParams = useSearchParams();
+  const tag = searchParams.get("tag");
+
   const [posts, setPosts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  // Fetch posts based on the tag
   useEffect(() => {
     const fetchPosts = async () => {
       try {
         const res = tag
-          ? await fetch(`/api/posts?tags=${tag}`) // Search posts with the tag
-          : await fetch(`/api/posts?limit=10`); // If no tag, get 10 latest posts
-        
+          ? await fetch(`/api/posts?tags=${tag}`) 
+          : await fetch(`/api/posts?limit=10`); 
+
         if (!res.ok) throw new Error("Failed to fetch posts");
         const data = await res.json();
         setPosts(data);
@@ -29,14 +29,13 @@ export default function SearchPage() {
     };
 
     fetchPosts();
-  }, [tag]); // Trigger the effect when the 'tag' changes
+  }, [tag]); 
 
   if (isLoading) return <div>Loading...</div>;
 
   return (
     <div className="flex justify-center items-center">
       <div className="w-full max-w-screen-xl rounded-lg space-y-6">
-        {/* Left Column: Search Results */}
         <div className="space-y-8">
           <div className="bg-white border border-gray-300 p-6 rounded-lg shadow-md">
             <h2 className="text-2xl font-bold mb-4 text-gray-800">
@@ -67,5 +66,13 @@ export default function SearchPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function SearchPage() {
+  return (
+    <Suspense fallback={<div>Loading search results...</div>}>
+      <Search />
+    </Suspense>
   );
 }
