@@ -9,7 +9,8 @@ const PostEditor = () => {
   const [region, setRegion] = useState("");
   const [status, setStatus] = useState("");
   const [content, setContent] = useState('');
-  const [lastDate, setLastDate] = useState(''); // State for last_date
+  const [lastDate, setLastDate] = useState('');
+  const [tags, setTags] = useState(''); // State for tags
   const [isLoading, setIsLoading] = useState(true);
 
   const navigate = useNavigate();
@@ -26,7 +27,8 @@ const PostEditor = () => {
           setRegion(post.region);
           setStatus(post.status);
           setContent(post.content);
-          setLastDate(post.last_date || ''); // Set last_date if available
+          setLastDate(post.last_date || '');
+          setTags(post.tags.join(',')); // Set tags if available (assuming tags are an array)
         } catch (error) {
           console.error("Error fetching post details:", error);
         } finally {
@@ -41,7 +43,8 @@ const PostEditor = () => {
 
   const handleSavePost = () => {
     const formattedLastDate = lastDate ? new Date(lastDate).toISOString() : null;
-  
+    const tagsArray = tags.split(',').map(tag => tag.trim()); // Split and trim tags
+
     const postData = {
       title,
       type: ptype,
@@ -49,12 +52,13 @@ const PostEditor = () => {
       status,
       content,
       last_date: formattedLastDate,
+      tags: tagsArray, // Include tags in the post data
     };
-  
+
     const request = id
       ? axios.put(`/api/posts/${id}`, postData)
       : axios.post("/api/posts", postData);
-  
+
     request
       .then((response) => {
         console.log("Post saved successfully:", response.data);
@@ -102,10 +106,18 @@ const PostEditor = () => {
         />
         <input
           className="p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 outline-none"
-          type="datetime-local" // Input for date and time
+          type="datetime-local"
           onChange={e => setLastDate(e.target.value)}
           value={lastDate}
           placeholder="Last Date"
+        />
+        {/* Input for tags */}
+        <input
+          className="p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 outline-none"
+          type="text"
+          onChange={e => setTags(e.target.value)}
+          value={tags}
+          placeholder="Tags (comma separated)"
         />
       </div>
 
